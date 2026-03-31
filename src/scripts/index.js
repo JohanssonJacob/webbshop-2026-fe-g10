@@ -71,3 +71,26 @@ function createProductCard(product) {
 
   return element;
 }
+
+
+function initMap() {
+  const map = L.map('map').setView([59.3293, 18.0686], 10);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
+  }).addTo(map);
+
+  const plantIcon = L.icon({
+    iconUrl: './public/plant-icon.png',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -35]
+  });
+
+  L.marker([59.3293, 18.0686], { icon: plantIcon }).addTo(map)
+    .bindPopup('<b>Lorem</b><br>Ipsm');
+}
+
+initMap();

@@ -25,6 +25,14 @@
   box-sizing: border-box;
 }
 
+/* Flytta/byta till scss? */
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+    filter: hue-rotate(20deg) saturate(300%) brightness(100%);
+}
+
 body {
   margin: 0;
   min-width: 320px;
