@@ -1,9 +1,11 @@
+import { getBaseUrl } from './api.js';
+
 export async function getProducts() {
-    //Vercel url?
-    const API_URL = "http://localhost:3000/plants/";
+
+    const API_URL = `${getBaseUrl()}plants/`;
 
     //Byt ut efter login är fixat
-    localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWQ2MGVkYWIwMWUyYTBhOTE1M2RiNzYiLCJpYXQiOjE3NzU4MTc2ODMsImV4cCI6MTc3NTkwNDA4M30.Zb85sBnu4jM7lA_jOaG22clSg1OkrMliS3m_d0IqVTs");
+    localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWQ2MGVkYWIwMWUyYTBhOTE1M2RiNzYiLCJpYXQiOjE3NzU4MjM4MzIsImV4cCI6MTc3NTkxMDIzMn0.pVrQasz76ZFeEcGtedgeb2ALURJ5rzJ0GaqpG9_dp0k");
     
     const token = localStorage.getItem("token");
 
@@ -33,6 +35,11 @@ export async function getProducts() {
 
     } catch (error) {
         console.error("Kunde inte hämta plantor från API:", error);
+        const title = document.querySelector('.main-content h1');
+        if (title && !title.textContent.includes("Backend unavailable")) {
+            title.textContent += " - Backend unavailable";
+            title.style.color = "#d9534f";
+        }
         return [];
     }
 }
