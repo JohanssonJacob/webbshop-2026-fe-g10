@@ -1,6 +1,6 @@
-import { getProducts } from "../utils/productsApi.js";
+import { getProducts } from "../utils/plantsApi.js";
 
-function initMap() {
+async function initMap() {
   const map = L.map('map').setView([59.3293, 18.0686], 10);
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -9,58 +9,55 @@ function initMap() {
     maxZoom: 20
   }).addTo(map);
 
-  const plantIcon = L.icon({
-    iconUrl: './public/plant-icon.png',
+  const getPlantIcon = (lightLevel) => L.icon({
+    iconUrl: `/public/plant-icon${lightLevel}.png`,
     iconSize: [40, 40],
     iconAnchor: [20, 40],
     popupAnchor: [0, -35]
   });
 
-  const plantIcon2 = L.icon({
-    iconUrl: './public/plant-icon2.png',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -35]
-  });
+  try {
+    const plants = await getProducts();
 
-  const plantIcon3 = L.icon({
-    iconUrl: './public/plant-icon3.png',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -35]
-  });
+    plants.forEach(plant => {
+      const [lng, lat] = plant.location.coordinates;
+      const selectedIcon = getPlantIcon(plant.lightLevel);
 
-  const plantIcon4 = L.icon({
-    iconUrl: './public/plant-icon4.png',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -35]
-  });
+      const marker = L.marker([lat, lng], { icon: selectedIcon }).addTo(map);
 
-  const plantIcon5 = L.icon({
-    iconUrl: './public/plant-icon5.png',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -35]
-  });
+      const popupContent = `
+        <div class="compact-row-popup">
+          <div class="popup-aside">
+            <img src="${plant.image}" class="popup-thumb">
+          </div>
+          <div class="popup-main">
+            <h4>${plant.name}</h4>
+            <p class="popup-desc">${plant.description}</p>
+            <div class="popup-meta">
+              <span>${`<img src="/public/light-level-icon.png" class="popup-icons-img">`.repeat(plant.lightLevel)}</span>
+              <span class="popup-owner"><img src="/public/owner-icon.png" class="popup-icons-img"> ${plant.owner.name}</span>
+            </div>
+            <button class="trade-btn" data-id="${plant._id}">Skicka bytesförfrågan</button>
+          </div>
+        </div>
+      `;
 
-  //Temp
+      marker.bindPopup(popupContent);
 
-  L.marker([59.3293, 18.0686], { icon: plantIcon }).addTo(map)
-    .bindPopup('<b>Namn</b><br>Planta');
-
-  L.marker([59.3203, 18.0646], { icon: plantIcon2 }).addTo(map)
-    .bindPopup('<b>Namn</b><br>Planta');
-
-  L.marker([59.3393, 18.0886], { icon: plantIcon3 }).addTo(map)
-    .bindPopup('<b>Namn</b><br>Planta');
-
-  L.marker([59.3393, 18.0086], { icon: plantIcon4 }).addTo(map)
-    .bindPopup('<b>Namn</b><br>Planta');
-
-  L.marker([59.3093, 18.0086], { icon: plantIcon5 }).addTo(map)
-    .bindPopup('<b>Namn</b><br>Planta');
-
+      marker.on('popupopen', () => {
+        const btn = document.querySelector(`.trade-btn[data-id="${plant._id}"]`);
+        if (btn) {
+          btn.onclick = () => {
+            console.log(`Bytesförfrågan skickad för växt: ${plant.name} (ID: ${plant._id})`);
+            //sendTradeRequest(plant._id)
+            alert(`Bytesförfrågan för ${plant.name} har skickats till ${plant.owner.name}!`);
+          };
+        }
+      });
+    });
+  } catch (error) {
+    console.error("Kunde inte hämta plantor:", error);
+  }
 }
 
 initMap();
