@@ -4,9 +4,6 @@ export async function getProducts() {
 
     const API_URL = `${getBaseUrl()}plants/`;
 
-    //Byt ut efter login är fixat
-    localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWQ2MGVkYWIwMWUyYTBhOTE1M2RiNzYiLCJpYXQiOjE3NzU4MjM4MzIsImV4cCI6MTc3NTkxMDIzMn0.pVrQasz76ZFeEcGtedgeb2ALURJ5rzJ0GaqpG9_dp0k");
-    
     const token = localStorage.getItem("token");
 
     try {

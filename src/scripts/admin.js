@@ -1,4 +1,4 @@
-import { getProducts, createProduct } from "../utils/productsApi.js";
+import { } from "/src/utils/plantsApi.js";
 
 const form = document.getElementById("createProductForm");
 const tbody = document.getElementById("productsTableBody");

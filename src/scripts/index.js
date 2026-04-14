@@ -1,7 +1,7 @@
 import { getProducts } from "../utils/plantsApi.js";
 
 async function initMap() {
-  const map = L.map('map').setView([59.3293, 18.0686], 10);
+  const map = L.map('map').setView([59.3293, 18.0686], 14);
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
