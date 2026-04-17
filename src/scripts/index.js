@@ -1,4 +1,6 @@
 import { getProducts } from "../utils/plantsApi.js";
+import { handleTradeRequest } from "../utils/trades.js";
+
 
 async function initMap() {
   const map = L.map('map').setView([59.3293, 18.0686], 14);
@@ -50,6 +52,7 @@ async function initMap() {
           btn.onclick = () => {
             console.log(`Bytesförfrågan skickad för växt: ${plant.name} (ID: ${plant._id})`);
             //sendTradeRequest(plant._id)
+            handleTradeRequest(plant._id)
             alert(`Bytesförfrågan för ${plant.name} har skickats till ${plant.owner.name}!`);
           };
         }
@@ -59,5 +62,6 @@ async function initMap() {
     console.error("Kunde inte hämta plantor:", error);
   }
 }
+
 
 initMap();
