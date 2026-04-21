@@ -1,42 +1,44 @@
 import { getBaseUrl } from './api.js';
 
-export async function getProducts() {
+const API_URL = `${getBaseUrl()}plants/`;
 
-    const API_URL = `${getBaseUrl()}plants/`;
 
-    const token = localStorage.getItem("token");
-
+export async function getPlants() {
     try {
-        if (!token) {
-            console.error("Ingen token hittades i localStorage. Användaren är inte inloggad.");
-            return [];
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
         }
 
+        return await response.json();
+
+    } catch (error) {
+        console.error("Error fetching plants:", error);
+        return [];
+    }
+}
+
+
+export async function createPlant(plantData) {
+    try {
         const response = await fetch(API_URL, {
-            method: 'GET',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(plantData)
         });
 
         if (!response.ok) {
-            if (response.status === 401) {
-                console.error("Autentisering misslyckades: Token är ogiltig eller har gått ut.");
-            }
-            throw new Error(`HTTP-fel! Status: ${response.status}`);
+            const text = await response.text();
+            throw new Error(`HTTP error: ${response.status} - ${text}`);
         }
 
-        const data = await response.json();
-        return data;
+        return await response.json();
 
     } catch (error) {
-        console.error("Kunde inte hämta plantor från API:", error);
-        const title = document.querySelector('.main-content h1');
-        if (title && !title.textContent.includes("Backend unavailable")) {
-            title.textContent += " - Backend unavailable";
-            title.style.color = "#d9534f";
-        }
-        return [];
+        console.error("Error creating plant:", error);
+        throw error;
     }
 }
