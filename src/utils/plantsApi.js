@@ -2,10 +2,18 @@ import { getBaseUrl } from './api.js';
 
 const API_URL = `${getBaseUrl()}plants/`;
 
-
+// 🟢 GET ALL PLANTS (med JWT)
 export async function getPlants() {
+    const token = localStorage.getItem("token");
+
     try {
-        const response = await fetch(API_URL);
+        const response = await fetch(API_URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        });
 
         if (!response.ok) {
             throw new Error(`HTTP error: ${response.status}`);
@@ -20,12 +28,26 @@ export async function getPlants() {
 }
 
 
-export async function createPlant(plantData) {
+export async function createPlant({ name, description, image, lightLevel, lat, lng }) {
+    const token = localStorage.getItem("token");
+
+    const plantData = {
+        name,
+        description,
+        image,
+        lightLevel,
+        location: {
+            type: "Point",
+            coordinates: [lng, lat] 
+        }
+    };
+
     try {
         const response = await fetch(API_URL, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(plantData)
         });
