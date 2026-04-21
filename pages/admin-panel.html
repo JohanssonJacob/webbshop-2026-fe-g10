@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Plot Twist</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav>
+            <a href="../index.html" class="logo">Plot Twist</a>
+            <ul class="nav-links">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/pages/admin.html">Admin</a></li>
+                <li><a href="/pages/register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <h1>Admin Dashboard</h1>
+
+        <div class="admin-controls">
+            <button id="show-plants" class="btn-tab active">Manage Plants</button>
+            <button id="show-users" class="btn-tab">Manage Users</button>
+        </div>
+
+        <section id="admin-list-container">
+            <h2 id="list-title">Plants</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr id="table-head">
+                    </tr>
+                </thead>
+                <tbody id="admin-tbody">
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script type="module" src="../src/scripts/admin-panel.js"></script>
+</body>
+
+</html>

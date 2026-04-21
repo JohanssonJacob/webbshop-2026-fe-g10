@@ -73,6 +73,7 @@ async function handleAuth(event) {
 
         if (isLoginMode) {
             localStorage.setItem("token", data.token);
+            localStorage.setItem("userRole", data.role);
             alert("Welcome back!");
             window.location.href = "../index.html";
         } else {
