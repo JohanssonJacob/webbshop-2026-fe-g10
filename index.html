@@ -16,15 +16,12 @@
 
   <!-- HEADER -->
   <header class="site-header">
-    <nav>
-      <a href="index.html" class="logo">Plot Twist</a>
-      <ul class="nav-links">
-        <li><a href="/pages/register.html">Login</a></li>
-        <li><a href="/pages/admin.html">Admin</a></li>
-        <li><a href="/pages/profile.html">Profile</a></li>
-      </ul>
-    </nav>
   </header>
+
+  <script type="module">
+    import { renderHeader } from "../src/utils/renderHeader.js";
+    renderHeader();
+  </script>
 
   <!-- HERO (full width) -->
   <section class="hero">
@@ -43,11 +40,6 @@
   <footer class="site-footer">
     <div class="footer-content">
       <p>&copy; 2026 Plot Twist. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/terms">Terms</a>
-      </div>
     </div>
   </footer>
 

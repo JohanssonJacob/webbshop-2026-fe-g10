@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin - Plot Twist</title>
+  <title>Plot Twist</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="/style/style.css" />
   <link rel="stylesheet" href="/style/admin.css" />
@@ -12,19 +12,15 @@
 
 <body>
   <header class="site-header">
-    <nav>
-      <a href="../index.html" class="logo">Plot Twist</a>
-      <ul class="nav-links">
-        <li><a href="/pages/products.html">Plants</a></li>
-        <li><a href="/pages/register.html">Login</a></li>
-        <li><a href="/pages/admin.html">Admin</a></li>
-        <li><a href="/pages/profile.html">Profile</a></li>
-      </ul>
-    </nav>
   </header>
 
+  <script type="module">
+    import { renderHeader } from "../src/utils/renderHeader.js";
+    renderHeader();
+  </script>
+
   <main class="admin-main">
-    <h1>Admin – Create Plant</h1>
+    <h1>Upload Plant</h1>
 
     <form id="createProductForm" class="admin-form">
 
@@ -62,7 +58,14 @@
   </main>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script type="module" src="../src/scripts/admin.js"></script>
+  <script type="module" src="../src/scripts/uploadPlant.js"></script>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2026 Plot Twist. All rights reserved.</p>
+    </div>
+  </footer>
+
 </body>
 
 </html>

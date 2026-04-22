@@ -12,16 +12,12 @@
 
   <!-- HEADER -->
   <header class="site-header">
-    <nav>
-      <a href="../index.html" class="logo">Plot Twist</a>
-      <ul class="nav-links">
-        <li><a href="/pages/products.html">Products</a></li>
-        <li><a href="/pages/register.html">Login</a></li>
-        <li><a href="/pages/admin.html">Admin</a></li>
-        <li><a href="/pages/profil.html">Profile</a></li>
-      </ul>
-    </nav>
   </header>
+
+  <script type="module">
+    import { renderHeader } from "../src/utils/renderHeader.js";
+    renderHeader();
+  </script>
 
   <!-- MAIN CONTENT -->
   <main class="main-content">
@@ -56,18 +52,15 @@
   </main>
 
   <!-- FOOTER -->
+
+  <script type="module" src="/src/scripts/register.js"></script>
+
   <footer class="site-footer">
     <div class="footer-content">
       <p>&copy; 2026 Plot Twist. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/terms">Terms</a>
-      </div>
     </div>
   </footer>
 
-  <script type="module" src="/src/scripts/register.js"></script>
 </body>
 
 </html>
