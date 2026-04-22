@@ -30,8 +30,10 @@ async function loadTrades() {
         <p>With: ${trade.otherUser?.name || "Unknown"}</p>
 
         ${trade.status === "pending" ? `
-          <button onclick="approveTrade('${trade._id}')">Approve</button>
-          <button onclick="rejectTrade('${trade._id}')">Reject</button>
+          <div class="actions">
+            <button class="btn-approve" onclick="handleApprove('${trade._id}')">Approve</button>
+            <button class="btn-reject" onclick="handleReject('${trade._id}')">Reject</button>
+          </div>
         ` : ""}
       </div>
     `).join("");
@@ -42,14 +44,14 @@ async function loadTrades() {
   }
 }
 
-window.approveTrade = async (id) => {
-  await updateTrade(id, "approved");
-  location.reload();
+window.handleApprove = async (id) => {
+  await updateTrade(id, "approve"); 
+  loadTrades();
 };
 
-window.rejectTrade = async (id) => {
-  await updateTrade(id, "rejected");
-  location.reload();
+window.handleReject = async (id) => {
+  await updateTrade(id, "cancel"); 
+  loadTrades(); 
 };
 
 document.addEventListener("DOMContentLoaded", loadTrades);

@@ -35,7 +35,7 @@ export async function handleTradeRequest(plantId) {
 export async function getTrades() {
   const token = localStorage.getItem("token");
 
-  const url = new URL("trades", getBaseUrl());
+  const url = new URL("trades/my", getBaseUrl());
 
   const response = await fetch(url, {
     headers: {
@@ -51,28 +51,27 @@ export async function getTrades() {
 }
 
 
-export async function updateTrade(tradeId, status) {
+export async function updateTrade(tradeId, action) {
   try {
     const token = localStorage.getItem("token");
-    const url = new URL(`trades/${tradeId}`, getBaseUrl());
+    const url = new URL(`trades/${tradeId}/${action}`, getBaseUrl());
 
     const response = await fetch(url, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ status })
+      }
     });
 
     if (!response.ok) {
-      throw new Error("Kunde inte uppdatera trade");
+      throw new Error(`Kunde inte utföra handlingen: ${action}`);
     }
 
     return await response.json();
 
   } catch (error) {
     console.error(error);
-    alert("Något gick fel vid uppdatering");
+    alert(`Något gick fel: ${error.message}`);
   }
 }
