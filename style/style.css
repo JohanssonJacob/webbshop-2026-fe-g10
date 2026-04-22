@@ -367,3 +367,110 @@ body {
 .btn-link:hover {
   color: var(--color-primary-hover);
 }
+
+/* ADMIN PANEL */
+.admin-controls {
+  margin-bottom: 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.btn-tab:hover {
+  background: var(--color-bg-alt);
+  color: var(--color-text);
+}
+
+.btn-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.admin-table th, 
+.admin-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  color: var(--color-text);
+}
+
+.admin-table th {
+  background-color: var(--color-border);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.btn-delete {
+  background-color: #d9534f;
+  color: var(--color-surface);
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #c9302c;
+}
+
+.admin-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  display: block;
+}
+
+.admin-table td:first-child {
+  width: 80px;
+}
+
+.admin-table td {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-table td small {
+  display: block;
+  word-break: break-all;
+  line-height: 1.2;
+  color: var(--color-text-muted);
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tr:hover {
+  background-color: var(--color-bg-alt);
+  transition: background 0.2s ease;
+}
