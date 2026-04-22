@@ -74,6 +74,7 @@ async function handleAuth(event) {
         if (isLoginMode) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("userRole", data.role);
+            saveUserId(data.token);
             alert("Welcome back!");
             window.location.href = "../index.html";
         } else {
@@ -86,3 +87,15 @@ async function handleAuth(event) {
         alert(error.message);
     }
 }
+
+const saveUserId = (token) => {
+    localStorage.setItem("token", token);
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+        if (payload.userId) {
+            localStorage.setItem("userId", payload.userId);
+        }
+    } catch (e) {
+        console.error("Kunde inte spara userId:", e);
+    }
+};

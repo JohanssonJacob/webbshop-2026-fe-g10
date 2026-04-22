@@ -22,11 +22,31 @@
   </header>
 
   <main class="profile-main">
-    <h1>Your Trades</h1>
+    <h1>Din Profil</h1>
 
-    <div id="tradesContainer">
-      <p>Loading...</p>
-    </div>
+    <section class="profile-section">
+      <h2>
+        <img src="../public/notification-icon.png" alt="" class="section-icon">
+        Inkommande förfrågningar
+      </h2>
+      <div id="pendingContainer" class="horizontal-scroll"></div>
+    </section>
+
+    <section class="profile-section">
+      <h2>
+        <img src="../public/sent-icon.png" alt="" class="section-icon">
+        Mina skickade förfrågningar
+      </h2>
+      <div id="outgoingContainer" class="horizontal-scroll"></div>
+    </section>
+
+    <section class="profile-section">
+      <h2>
+        <img src="../public/history-icon.png" alt="" class="section-icon">
+        Byteshistorik
+      </h2>
+      <div id="historyContainer" class="list-view"></div>
+    </section>
   </main>
 
   <script type="module" src="../src/scripts/profile.js"></script>
