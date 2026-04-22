@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin - Plot Twist</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="/style/style.css" />
   <link rel="stylesheet" href="/style/admin.css" />
 </head>
@@ -14,61 +15,53 @@
     <nav>
       <a href="../index.html" class="logo">Plot Twist</a>
       <ul class="nav-links">
-        <li><a href="/pages/products.html">Products</a></li>
-        <li><a href="/pages/cart.html">Cart (0)</a></li>
+        <li><a href="/pages/products.html">Plants</a></li>
         <li><a href="/pages/register.html">Login</a></li>
         <li><a href="/pages/admin.html">Admin</a></li>
+        <li><a href="/pages/profile.html">Profile</a></li>
       </ul>
     </nav>
   </header>
 
   <main class="admin-main">
-    <h1>Admin – Create Product</h1>
+    <h1>Admin – Create Plant</h1>
 
     <form id="createProductForm" class="admin-form">
+
       <div class="admin-form-row">
-        <label for="name">Name</label>
+        <label for="name">Plant Name</label>
         <input type="text" id="name" required />
       </div>
+
       <div class="admin-form-row">
-        <label for="price">Price</label>
-        <input type="number" id="price" step="0.01" min="0" required />
+        <label for="description">Description</label>
+        <input type="text" id="description" required />
       </div>
-      <div class="admin-form-row">
-        <label for="stock">Stock</label>
-        <input type="number" id="stock" min="0" required />
-      </div>
+
       <div class="admin-form-row">
         <label for="image">Image URL</label>
         <input type="url" id="image" required />
       </div>
-      <div class="admin-form-row">
-        <label for="slug">Slug</label>
-        <input type="text" id="slug" required placeholder="e.g. organic-tomatoes" />
-      </div>
-      <button type="submit">Create Product</button>
-    </form>
 
-    <h2>Products</h2>
-    <div class="admin-table-wrap">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Slug</th>
-          </tr>
-        </thead>
-        <tbody id="productsTableBody">
-          <tr>
-            <td colspan="4">Loading...</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="admin-form-row">
+        <label for="lightLevel">Light Level</label>
+        <select id="lightLevel" required>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+        </select>
+      </div>
+
+      <p>Click on the map to select location 📍</p>
+      <h3>Select location</h3>
+      <div id="adminMap" style="height: 300px; margin-top: 10px;"></div>
+      <p id="coordsText"></p>
+
+      <button type="submit">Create Plant</button>
+    </form>
   </main>
 
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script type="module" src="../src/scripts/admin.js"></script>
 </body>
 
