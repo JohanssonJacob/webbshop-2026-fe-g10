@@ -114,6 +114,7 @@ function renderHistory(trades) {
 
 window.handleApprove = async (id) => {
   await updateTrade(id, "approve");
+  await updateTrade(id, "complete");
   initProfile();
 };
 
