@@ -42,10 +42,15 @@
 .admin-form button {
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
-  background: #333;
+  background: #3b975c;
   color: #fff;
   border: none;
   cursor: pointer;
+}
+
+.admin-form button:hover {
+  color: #3d7451;
+  transform: scale(0.98);
 }
 
 .admin-table-wrap {

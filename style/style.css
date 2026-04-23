@@ -25,8 +25,7 @@
   box-sizing: border-box;
 }
 
-/* Flytta/byta till scss? */
-#map {
+#map, #adminMap {
   height: 600px;
   width: 100%;
   border-radius: 10px;
@@ -380,14 +379,20 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  background: var(--color-surface);
+}
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
   background: var(--color-surface);
-  box-shadow: var(--shadow-md);
-  border-radius: var(--radius-md);
-  overflow: hidden;
 }
 
 .admin-table th, 
@@ -455,6 +460,30 @@ body {
 .admin-table tr:hover {
   background-color: var(--color-bg-alt);
   transition: background 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .admin-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .btn-tab {
+    flex: 1 1 calc(50% - 8px);
+    padding: 12px 8px;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .admin-table {
+    min-width: 650px;
+  }
+
+  .admin-table th, 
+  .admin-table td {
+    padding: 12px 10px;
+    font-size: 0.9rem;
+  }
 }
 
 /* PROFILE PAGE */
@@ -583,4 +612,59 @@ body {
     
 }
 
+/* Hamburgarmeny desktop*/
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1001;
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hamburgarmeny i mobilvy */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--color-surface);
+    flex-direction: column;
+    padding: 80px 20px;
+    box-shadow: var(--shadow-hover);
+    transition: 0.4s ease-in-out;
+    z-index: 1000;
+    gap: 2rem;
+  }
+
+  .nav-links.active {
+    right: 0; 
+  }
+
+  .menu-toggle.is-active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .menu-toggle.is-active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.is-active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
 
