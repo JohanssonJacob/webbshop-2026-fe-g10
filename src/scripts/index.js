@@ -59,7 +59,24 @@ function addPlantMarker(plant) {
   });
 }
 
-window.addPlantMarker = addPlantMarker;
+const displayedIds = [];
+
+async function refreshPlants() {
+  try {
+    const plants = await getPlants();
+    plants.forEach(plant => {
+      if (!displayedIds.includes(plant._id)) {
+        displayedIds.push(plant._id);
+        addPlantMarker(plant);
+      }
+    });
+
+    console.log(`Uppdaterade kartan. Totalt antal plantor: ${displayedIds.length}`);
+  } catch (error) {
+    console.error("Kunde inte hämta plantor:", error);
+  }
+}
+
 
 async function initMap() {
   map = L.map('map').setView([59.3293, 18.0686], 14);
@@ -70,26 +87,8 @@ async function initMap() {
     maxZoom: 20
   }).addTo(map);
 
-  window.selectedCoords = null;
-  let tempMarker = null;
-
-  map.on("click", function (e) {
-    const { lat, lng } = e.latlng;
-    window.selectedCoords = { lat, lng };
-
-    if (tempMarker) {
-      map.removeLayer(tempMarker);
-    }
-
-    tempMarker = L.marker([lat, lng]).addTo(map);
-  });
-
-  try {
-    const plants = await getPlants();
-    plants.forEach(addPlantMarker);
-  } catch (error) {
-    console.error("Kunde inte hämta plantor:", error);
-  }
+  refreshPlants();
+  setInterval(refreshPlants, 10000);
 }
 
 initMap();
