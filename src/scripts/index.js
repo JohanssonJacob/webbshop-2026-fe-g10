@@ -49,7 +49,6 @@ function addPlantMarker(plant) {
           await handleTradeRequest(plant._id);
           btn.innerText = "Skickad!";
           btn.disabled = true;
-          alert("Bytesförfrågan skickad");
         } catch (err) {
           console.error(err);
           alert("Kunde inte skicka förfrågan");
