@@ -108,15 +108,18 @@ async function loadData() {
 function addPlantRow(row, plant) {
     const date = new Date(plant.createdAt).toLocaleDateString('sv-SE');
 
+    const ownerName = plant.owner?.name || 'Borttagen användare';
+    const ownerId = plant.owner?._id || 'N/A';
+
     row.innerHTML = `
-        <td><img src="${plant.image}" class="admin-thumb"></td>
+        <td><img src="${plant.image}" class="admin-thumb" onerror="this.src='/public/placeholder-plant-icon.png';"></td>
         <td>
             <strong>${plant.name}</strong><br>
             <small>Plant ID: ${plant._id}</small>
         </td>
         <td>
-            <strong>${plant.owner.name}</strong><br>
-            <small>User ID: ${plant.owner._id}</small>
+            <strong>${ownerName}</strong><br>
+            <small>User ID: ${ownerId}</small>
         </td>
         <td>${`<img src="/public/light-level-icon.png" class="popup-icons-img">`.repeat(plant.lightLevel || 1)}</td>
         <td>${date}</td>
