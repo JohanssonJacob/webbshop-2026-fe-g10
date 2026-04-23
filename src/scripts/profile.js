@@ -57,37 +57,57 @@ function renderIncoming(trades) {
 
 function renderOutgoing(trades) {
 
-  if (trades.length === 0) {
-    outgoingContainer.innerHTML = "<p class='empty-msg'>Du har inga väntande förfrågningar.</p>";
-    return;
-  }
+    if (trades.length === 0) {
+        outgoingContainer.innerHTML = "<p class='empty-msg'>Du har inga väntande förfrågningar.</p>";
+        return;
+    }
 
-  outgoingContainer.innerHTML = trades.map(trade => `
+    const sortedTrades = [...trades].sort((a, b) => 
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+    outgoingContainer.innerHTML = sortedTrades.map(trade => `
         <div class="trade-card outgoing">
             <div class="badge waiting">VÄNTAR PÅ SVAR</div>
             <img src="${trade.plant?.image || ''}" alt="Planta" onerror="this.src='../public/placeholder-plant-icon.png';"/>
             <div class="trade-info">
-                <h3>${trade.plant?.name}</h3>
-                <p class="participants">Till: <strong>${trade.owner?.name}</strong></p>
-                <p class="status-text">Du väntar på att ${trade.owner?.name} ska godkänna bytet.</p>
+                <h3>${trade.plant?.name || 'Okänd växt'}</h3>
+                <p class="participants">Till: <strong>${trade.owner?.name || 'Okänd'}</strong></p>
+                <p class="status-text">Du väntar på att ${trade.owner?.name || 'ägaren'} ska godkänna bytet.</p>
+                
+                <div class="trade-actions">
+                    <button class="btn-cancel-trade" onclick="handleReject('${trade._id}')">
+                        Avbryt förfrågan
+                    </button>
+                </div>
             </div>
         </div>
     `).join("");
 }
 
 function renderHistory(trades) {
-  if (trades.length === 0) {
+  if (!trades || trades.length === 0) {
     historyContainer.innerHTML = "<p class='empty-msg'>Ingen historik hittades.</p>";
     return;
   }
+  
+  const sortedTrades = [...trades].sort((a, b) => {
+    const timeA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+    const timeB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+    return timeB - timeA; 
+  });
 
-  historyContainer.innerHTML = trades.map(trade => `
+  historyContainer.innerHTML = sortedTrades.map(trade => `
         <div class="history-item">
             <div class="history-details">
-                <strong>${trade.plant?.name || "Växt"}</strong>
-                <span class="history-users">${trade.requester?.name} ⇄ ${trade.owner?.name}</span>
+                <strong>${trade.plant?.name || "Okänd växt"}</strong>
+                <span class="history-users">
+                  ${trade.requester?.name || 'Okänd'} ⇄ ${trade.owner?.name || 'Okänd'}
+                </span>
             </div>
-            <span class="status-tag ${trade.status}">${trade.status.toUpperCase()}</span>
+            <span class="status-tag ${trade.status || 'unknown'}">
+              ${(trade.status || 'INFO').toUpperCase()}
+            </span>
         </div>
     `).join("");
 }
